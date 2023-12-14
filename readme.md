@@ -15,9 +15,9 @@
 3. Слой сервисной логики 
 4. Презентационный слой (отображение view и обработка запросов)
 
-Таблица Users: id (PK), email (varchar), password (varchar), settings (jsonb)
+- Таблица Users: id (PK), email (varchar), password (varchar), settings (jsonb)
 
-Таблица Confirmations: id (PK), userId (FK), settingId (FK), code (varchar), delayDate (timestamp)
+- Таблица Confirmations: id (PK), userId (FK), settingId (FK), code (varchar), delayDate (timestamp)
 
 Абстракции Sender (для отправки кода), Repository (для изменения данных в бд), Controller (для отображения
-данных на странице и обработки запросов) сильно упростят работу
+данных на странице и обработки запросов) сильно упростят работу.
