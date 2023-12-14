@@ -19,11 +19,11 @@ class ConfirmationService extends Service
 
     public function createConfirmation(int $userId, int $settingId)
     {
-        $newConfirmation = new Confirmation($userId, $settingId, $this->createCode());
+        $newConfirmation = new Confirmation($userId, $settingId, $this->createConfirmationCode());
         $this->confirmationRepository->insert($newConfirmation);
     }
 
-    private function createCode()
+    private function createConfirmationCode()
     {
         // ...
         return $newCode;
