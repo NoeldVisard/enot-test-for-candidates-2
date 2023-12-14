@@ -3,13 +3,15 @@
 class SettingsController extends Controller
 {
     private $confirmationService;
+    private $userService;
 
     /**
      * @param $confirmationServices
      */
-    public function __construct($confirmationService)
+    public function __construct($confirmationService, $userService)
     {
         $this->confirmationService = $confirmationService;
+        $this->userService = $userService;
     }
 
     public function actionSettingsPage()
@@ -23,5 +25,19 @@ class SettingsController extends Controller
         $this->confirmationService->createConfirmation($app->userId, $settingId);
 
         $this->returnStatus(200, ['data' => 'data']);
+    }
+
+    public function actionEditSetting(string $confirmationCode, $parameter)
+    {
+        if ($this->confirmationService->isConfirmationCorrect($app->userId, $confirmationCode)) {
+            $confirmation = $this->confirmationService->getConfirmation($app->userId);
+
+            $this->userService->editSetting($confirmation, $parameter);
+            $this->confirmationService->deleteConfirmation($app->userId);
+
+            $this->render('settings', ['data' => 'data']);
+        } else {
+            $this->returnStatus(402, ['error' => 'Неверный код']);
+        }
     }
 }

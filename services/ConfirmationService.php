@@ -28,4 +28,18 @@ class ConfirmationService extends Service
         // ...
         return $newCode;
     }
+
+    public function isConfirmationCorrect(int $userId, string $confirmationCode)
+    {
+        $confirmation = $this->confirmationRepository->get($userId);
+        $currentDateTime = new \DateTime();
+
+        if ($confirmationCode === $confirmation['code']
+            && $currentDateTime < $confirmation['delayDate']) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
