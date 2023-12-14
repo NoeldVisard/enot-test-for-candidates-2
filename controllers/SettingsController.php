@@ -22,7 +22,8 @@ class SettingsController extends Controller
 
     public function actionRequestConfirmation(int $settingId)
     {
-        $this->confirmationService->createConfirmation($app->userId, $settingId);
+        $confirmation = $this->confirmationService->createConfirmation($app->userId, $settingId);
+        $this->confirmationService->sendConfirmationCode($app->userId, $confirmation['code']);
 
         $this->returnStatus(200, ['data' => 'data']);
     }
