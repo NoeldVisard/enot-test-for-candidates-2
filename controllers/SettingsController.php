@@ -33,12 +33,17 @@ class SettingsController extends Controller
         if ($this->confirmationService->isConfirmationCorrect($app->userId, $confirmationCode)) {
             $confirmation = $this->confirmationService->getConfirmation($app->userId);
 
-            $this->userService->editSetting($confirmation, $parameter);
+            $this->userService->editSetting($confirmation['userId'], $confirmation['settingId'], $parameter);
             $this->confirmationService->deleteConfirmation($app->userId);
 
             $this->render('settings', ['data' => 'data']);
         } else {
             $this->returnStatus(402, ['error' => 'Неверный код']);
         }
+    }
+
+    public function actionEditSendMethod(string $newSendMethod)
+    {
+        $this->userService->editSetting($app->userId, 'sendMethod', $newSendMethod);
     }
 }

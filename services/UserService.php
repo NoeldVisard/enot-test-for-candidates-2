@@ -16,10 +16,10 @@ class UserService extends Service
         $this->userRepository = $userRepository;
     }
 
-    public function editSetting(Confirmation $confirmation, $newParameter)
+    public function editSetting(int $userId, int $settingId, $newParameter)
     {
-        $user = $this->userRepository->get($confirmation['userId']);
-        $user['settings'][$confirmation['settingId']] = $newParameter;
+        $user = $this->userRepository->get($userId);
+        $user['settings'][$settingId] = $newParameter;
 
         return $this->userRepository->update($user['id'], $user);
     }
