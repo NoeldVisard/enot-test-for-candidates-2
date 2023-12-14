@@ -8,17 +8,12 @@ class SettingsController extends Controller
         $this->render('settings', ['data' => 'data']);
     }
 
-    /**
-     * action для изменения настройки пользователем
-     * @param int $settingId
-     * @return void
-     */
-    public function actionEditSetting(int $settingId)
+    public function actionRequestConfirmation(int $settingId)
     {
         $confirmationService = new \services\ConfirmationService();
 
         $confirmationService->createConfirmation($app->userId, $settingId);
 
-        $this->render('edit-setting');
+        $this->returnStatus(200, ['data' => 'data']);
     }
 }
